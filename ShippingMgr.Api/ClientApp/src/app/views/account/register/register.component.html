@@ -1,0 +1,57 @@
+          <form class="form-signin" [formGroup]="registerForm" (ngSubmit)="register()">
+           
+              <ion-item>
+                 <ion-label position="floating">Email</ion-label>
+                 <ion-input type="text" formControlName="email" name="email" required ngDefaultControl ></ion-input>
+                 <div *ngIf="isSubmitted && f.email.errors" class="invalid-feedback">
+                   <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                 </div>
+              </ion-item>
+
+              <ion-item>
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-label position="floating">First Name</ion-label>
+                    <ion-input type="text" formControlName="first_name" name="first_name" required ngDefaultControl ></ion-input>
+                    <div *ngIf="isSubmitted && f.first_name.errors" class="invalid-feedback">
+                      <div *ngIf="f.first_name.errors.required">First Name is required!</div>
+                    </div>
+                  </ion-col>
+
+                  <ion-col size="6">
+                    <ion-label position="floating">Last Name</ion-label>
+                    <ion-input type="text" formControlName="last_name" name="last_name" required ngDefaultControl ></ion-input>
+                    <div *ngIf="isSubmitted && f.last_name.errors" class="invalid-feedback">
+                       <div *ngIf="f.last_name.errors.required">Last Name is required!</div>
+                    </div>
+                  </ion-col>
+                </ion-row>
+
+             </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Password</ion-label>
+                <ion-input type="password" formControlName="password" name="password" required ngDefaultControl ></ion-input>
+                <div *ngIf="isSubmitted && f.password.errors" class="invalid-feedback">
+                   <div *ngIf="f.password.errors.required">Password is required</div>
+                </div>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Confirm Password</ion-label>
+                <ion-input type="password" formControlName="confirm_password" name="confirm_password" required ngDefaultControl ></ion-input>
+                <div *ngIf="isSubmitted && f.confirm_password.errors" class="invalid-feedback">
+                    <div *ngIf="f.confirm_password.errors.required">Password is required</div>
+                    <div *ngIf="f.confirm_password.errors.mustMatch">Password is not matching</div>
+                </div>
+              </ion-item>
+          
+              <ion-item  lines="none">
+                <ion-button type="submit" [disabled]="isProcessing || isSuccess" color="danger" size="medium" expand="block">
+                    <span *ngIf="isProcessing" class="spinner-border spinner-border-sm mr-1"></span>
+                    Register
+                  </ion-button>
+                  <a routerLink="../login" class="btn btn-link">Cancel</a>
+              </ion-item>
+
+            </form>

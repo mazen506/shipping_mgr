@@ -1,0 +1,22 @@
+{
+    "General": {
+        "Currencies": "العملات",
+        "Email": "البريد الإلكتروني"
+    },
+    "Account": {
+        "Login": "تسجيل دخول",
+        "RegistrationSuccess": "Congratulations, your account is created succesfully! You can <a href='/account/login?email={{email}}'>Login Here</a>",
+        "ResetLinkSuccess": "Reset Link sent to your email successfully!!",
+        "ResetPasswordSuccess": "Password reset successfully, you can <a href='/account/login'>Login Here</a>!!",
+        "Register": "تسجيل",
+        "ResetPassword":"إعادة تعيين كلمة المرور",
+        "EmailConfirmation": "تأكيد البريد الإلكتروني",
+        "ForgotPassword":"إستعادة كلمة المرور"
+    },
+    "Errors": {
+        "AccountNotActivated": "Account not activated yet! please activate through the link sent previously to your email or <a href='/account/confirmEmail?email={{email}}'>Send Again</a>",
+        "Unauthorized": "Invalid user name or password!",
+        "Unexpected": "Unexpected error, please try again!",
+        "HttpErrorResponse": "Unexpected error, Please try again later!!"
+    }
+}

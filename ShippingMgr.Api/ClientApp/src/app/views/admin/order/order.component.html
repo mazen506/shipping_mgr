@@ -1,0 +1,77 @@
+<div class="title">Order</div>
+<form [formGroup]="frm" (ngSubmit)="submit()">
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+        <label>Customer</label>
+        <select formControlName="customerId" name="customerId" class="form-control" ngDefaultControl>
+            <option value="0">-- Select --</option>
+            <option *ngFor="let customer of customers" value="{{customer.id}}">{{customer.name}}</option>
+        </select>
+        <div *ngIf="isSubmitted && f.customerId.errors" class="invalid-feedback">
+          <div *ngIf="f.customerId.errors.notEqual">Customer is required</div>
+       </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+      <div class="form-group">
+          <label>Date</label>
+          <input type="text" class="form-control" formControlName="date" name="date" ngDefaultControl>
+          <div *ngIf="isSubmitted && f.date.errors" class="invalid-feedback">
+            <div *ngIf="f.date.errors.required">Date is required</div>
+         </div>
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+      <div class="form-group">
+          <label>Note</label>
+          <input type="text" class="form-control" formControlName="note" name="note" value="{{order.note}}" ngDefaultControl>
+      </div>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <table class="table">
+            <thead class="thead-light">
+                <th>Serial</th>
+                <th>Item</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Note</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let orderItem of order.items; let i=index;">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ getItem(orderItem.itemId).name }}</td>
+                    <td>{{ orderItem.qty }}</td>
+                    <td>{{ orderItem.price }}</td>
+                    <td> {{ orderItem.amount }}</td>
+                    <td> {{ orderItem.note }} </td>
+                    <td> 
+                        <a (click)="editItem(i)" class="action-link">Edit</a>
+                        <a (click)="delItem(i)" class="action-link">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<button type="submit" class="btn btn-primary" expand="block">Save</button>
+<a class="btn btn-secondary" (click)="editItem(null)">New Item</a>
+<a class="btn btn-danger" (click)="delete()">Delete</a>
+<a routerLink="/admin/orders" class="btn btn-secondary">Back</a>
+</form>
+
+
+
+

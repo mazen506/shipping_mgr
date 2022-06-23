@@ -1,0 +1,7 @@
+<div *ngIf="alert" class="{{cssClass(alert)}}">
+  <!-- <a class="close" (click)="removeAlert(alert)">&times;</a> -->
+  <span *ngIf="alert.processing" class="spinner-border spinner-border-sm mr-1"></span>
+  <span [innerHTML]="alert.message">
+      
+  </span>
+</div>

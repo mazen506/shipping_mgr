@@ -1,0 +1,21 @@
+<h1>Currencies Page</h1>
+<br>
+<div *ngIf="isLoggedIn()" style="color:blue;">
+  <h2>
+    YOU ARE LOGGED IN
+  </h2>
+</div>
+
+<ul *ngIf="isLoggedIn()" class="currencies">
+  <li *ngFor="let currency of currencies">
+      <span class="badge">{{currency.id}}</span> 
+      <span>{{currency.code_Ar}}</span>
+  </li>
+</ul>
+
+<br>
+
+<ul>
+  <li *ngIf="!isLoggedIn()"><a routerLink="/account/login">Login</a></li>
+  <li *ngIf="isLoggedIn()"><a class="logout" (click)="logOut()">Logout</a></li>
+</ul>

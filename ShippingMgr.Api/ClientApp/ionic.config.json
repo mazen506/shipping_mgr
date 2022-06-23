@@ -1,0 +1,7 @@
+{
+  "name": "shipping-mgr.client",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
