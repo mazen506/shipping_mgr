@@ -120,4 +120,79 @@ namespace ShippingMgr.Api.Extensions
             });
         }
     }
+
+    internal static class DbInitializerExtension
+    {
+        public static IApplicationBuilder SeedData(this IApplicationBuilder app)
+        {
+            ArgumentNullException.ThrowIfNull(app, nameof(app));
+
+            using var scope = app.ApplicationServices.CreateScope();
+            var services = scope.ServiceProvider;
+            try
+            {
+                var context = services.GetRequiredService<AppDataContext>();
+                DbInitializer.Initialize(services,context);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return app;
+        }
+    }
+
+    internal class DbInitializer
+    {
+        internal static void Initialize(IServiceProvider services,AppDataContext dbContext)
+        {
+            ArgumentNullException.ThrowIfNull(dbContext, nameof(dbContext));
+            dbContext.Database.EnsureCreated();
+
+            //Add Users
+            if (!dbContext.Roles.Any())
+            {
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                var adminRole = new IdentityRole();
+                adminRole.Name = UserRoles.Admin;
+                roleManager.CreateAsync(adminRole);
+
+                var clientRole = new IdentityRole();
+                clientRole.Name = UserRoles.Client;
+                roleManager.CreateAsync(clientRole);
+
+                var mazen = new AppUser { Email = "mazen506@gmail.com", UserName="mazen506@gmail.com", FirstName = "Mazen", LastName = "Mustafa" };
+                var userResult = userManager.CreateAsync(mazen, "Test@1234").Result;
+                if (!userResult.Succeeded)
+                {
+                    throw new Exception("Unable to create mazen:\r\n" + string.Join("\r\n", userResult.Errors.Select(error => $"{error.Code}: {error.Description}")));
+                }
+            }
+
+            //Add Currencies
+            if (!dbContext.Currencies.Any())
+            {
+                var currencies = new Currency[]
+                {
+                     new Currency{Name_En="Dollar", Name_Ar="دولار", Code_En="$", Code_Ar="$"}
+                };
+                dbContext.Currencies.AddRange(currencies);
+            }
+
+            //Add Items
+            if (!dbContext.Currencies.Any())
+            {
+                var items = new Item[]
+                {
+                     new Item{Name="Jeans trouser", Price=1000, Description="Jeans trouser"},
+                     new Item{Name="T-Shirt", Price=800, Description="T-Shirt"}
+                };
+                dbContext.Items.AddRange(items);
+            }
+
+            dbContext.SaveChanges();
+        }
+    }
 }

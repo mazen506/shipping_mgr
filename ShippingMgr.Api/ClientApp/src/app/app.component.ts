@@ -13,7 +13,7 @@ export class AppComponent {
   constructor(private router: Router,  
               private activatedRoute: ActivatedRoute, 
               private translateService: TranslateService,
-              private titleService: Title) {
+              public titleService: Title) {
                 this.initializeApp();
               }
 

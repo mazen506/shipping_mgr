@@ -26,6 +26,7 @@ import { AdminBaseComponent } from './admin-base/admin-base.component';
              RouterModule,
              AdminRoutingModule,
              FormsModule,
+             IonicModule,
              ReactiveFormsModule,
              MatDialogModule
             ],

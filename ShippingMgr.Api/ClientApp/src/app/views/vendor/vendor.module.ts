@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [],
   imports: [ CommonModule,
              RouterModule,
+             IonicModule,
              VendorRoutingModule ],
   bootstrap: [],
 })

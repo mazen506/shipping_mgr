@@ -9,6 +9,7 @@
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
     <RootNamespace>ShippingMgr.Api</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Configurations>Debug;Release;Staging</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
@@ -55,7 +56,11 @@
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build --prod" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="ionic build --configuration=production" Condition="'$(EnvironmentName)' == 'Production'" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="ionic build --configuration=staging" Condition="'$(EnvironmentName)' == 'Staging'" />
+
+    
+    
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>

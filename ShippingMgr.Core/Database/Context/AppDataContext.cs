@@ -10,12 +10,30 @@ namespace ShippingMgr.Core.Database.Context
 {
     //[DbConfigurationType(typeof(Pomelo.EntityFrameworkCore.MySql.))]
 
-    public sealed class AppDataContext : IdentityDbContext<AppUser, IdentityRole, string>
+    public sealed class AppDataContext : IdentityDbContext<AppUser>
     {
+
+        //public AppDataContext() : base() { }
         public AppDataContext(DbContextOptions<AppDataContext> options)
-        : base(options)
+         : base(options)
+         {
+
+         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+            if (!optionsBuilder.IsConfigured)
+            {
+                var builder = new ConfigurationBuilder()
+                      .SetBasePath(Directory.GetCurrentDirectory())
+                      .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                      .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: true);
+
+                var config = builder.Build();
+                var connectionString = config.GetConnectionString(nameof(AppDataContext)); 
+                var serverVersion = new MySqlServerVersion(new Version(5, 5, 27));
+                optionsBuilder.UseMySql(connectionString, serverVersion);
+            }
         }
 
         public DbSet<Currency> Currencies { get; set; }
@@ -38,9 +56,9 @@ namespace ShippingMgr.Core.Database.Context
         }
     }
 
-    //public class YourDbContextFactory : IDesignTimeDbContextFactory<AppDataContext>
+    //public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDataContext>
     //{
-    //    public AppDataContext CreateDbContext(string[] args)
+    //    AppDataContext IDesignTimeDbContextFactory<AppDataContext>.CreateDbContext(string[] args)
     //    {
     //        IConfigurationRoot configuration = new ConfigurationBuilder()
     //                                           .AddJsonFile("appsettings.Staging.json")
@@ -48,7 +66,7 @@ namespace ShippingMgr.Core.Database.Context
     //        var optionsBuilder = new DbContextOptionsBuilder<AppDataContext>();
     //        var connectionString = configuration.GetConnectionString(nameof(AppDataContext));
     //        var serverVersion = new MySqlServerVersion(new Version(5, 5, 27));
-    //        optionsBuilder.UseMySql(connectionString,serverVersion);
+    //        optionsBuilder.UseMySql(connectionString, serverVersion);
     //        return new AppDataContext(optionsBuilder.Options);
     //    }
     //}

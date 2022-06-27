@@ -11,5 +11,11 @@
   ],
   "include": [
     "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts",
+    "src/test.ts",
+    "src/environments/environment.prod.ts",
+    "src/environments/environment.staging.ts",
   ]
 }

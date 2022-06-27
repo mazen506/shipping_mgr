@@ -1,3 +1,3 @@
 export class SharedComponent {
-    public static readonly API_BASE_URL = "http://localhost:5068/";
+    //public static readonly API_BASE_URL = "http://localhost:5068/";
   }

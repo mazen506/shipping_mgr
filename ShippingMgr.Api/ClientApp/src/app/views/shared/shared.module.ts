@@ -13,6 +13,7 @@ import { BaseComponent } from './base/base.component';
   imports: [ CommonModule,
              SharedRoutingModule,
              FormsModule,
+             IonicModule,
              RouterModule,
              ReactiveFormsModule,
             ],
