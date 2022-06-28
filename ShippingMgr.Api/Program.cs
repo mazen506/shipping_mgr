@@ -10,12 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 ConfigurationManager configuration = builder.Configuration; // allows both to access and to set up the config
 builder.Services.AddControllersWithViews();
-builder.Services.AddContext();
 builder.Services.ConfigureIISIntegration();
-//builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddServices(configuration);
+builder.Services.AddContext();
 
 var app = builder.Build();
+app.SeedData();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

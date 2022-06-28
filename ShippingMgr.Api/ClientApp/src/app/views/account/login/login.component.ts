@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup,FormBuilder, Validators,FormControl } from '@angular/forms';
-import { customValidators } from '../../../providers/customValidators';
 import { AlertService } from 'src/app/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
-
+import { environment } from 'src/environments/environment'
 
 @Component({
   selector: 'app-login',
@@ -16,6 +15,7 @@ export class LoginComponent implements OnInit {
   loginForm:FormGroup;
   invalidLogin: boolean;
   errMessage;
+  apiUrl;
   constructor(private auth:AuthService, 
               private alertService:AlertService,
               private route:ActivatedRoute,
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
               public fb: FormBuilder ) { }
 
   ngOnInit() {
-    
+    this.apiUrl = environment.apiUrl;
     this.loginForm = this.fb.group({
       email: ['mazen506@hotmail.com', Validators.email],
       password: ['Admin@1234', Validators.required],

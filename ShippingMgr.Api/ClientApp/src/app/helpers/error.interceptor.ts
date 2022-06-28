@@ -11,6 +11,7 @@ import {
 import { Observable, throwError } from "rxjs";
 import { map, catchError, timeout } from "rxjs/operators";
 import { SharedComponent } from "../shared/shared.component";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root"
@@ -51,22 +52,22 @@ export class NgNetInterceptor implements HttpInterceptor {
   }
 
   public get(url: string, options?: any): Observable<any> {
-    url = SharedComponent.API_BASE_URL + url;
+    url = environment.apiUrl + url;
     return this.http.get<any>(url, options).pipe();
   }
 
   public post(url: string, body: any, options?: any): Observable<any> {
-    url = SharedComponent.API_BASE_URL + url;
+    url = environment.apiUrl + url;
     return this.http.post(url, body, options).pipe();
   }
 
   public delete(url: string,options?: any): Observable<any> {
-    url = SharedComponent.API_BASE_URL + url;
+    url = environment.apiUrl + url;
     return this.http.delete(url, options).pipe();
   }
 
   public update(url: string, body:any, options?: any): Observable<any> {
-    url = SharedComponent.API_BASE_URL + url;
+    url = environment.apiUrl + url;
     return this.http.put(url,body, options).pipe();
   }
 }
