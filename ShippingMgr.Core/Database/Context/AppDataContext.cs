@@ -35,7 +35,6 @@ namespace ShippingMgr.Core.Database.Context
                 optionsBuilder.UseMySql(connectionString, serverVersion);
             }
         }
-
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
